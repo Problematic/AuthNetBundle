@@ -1,0 +1,3 @@
+AuthNet_index:
+    pattern: /
+    defaults: { _controller: ProblematicAuthNetBundle:AuthNet:index }
