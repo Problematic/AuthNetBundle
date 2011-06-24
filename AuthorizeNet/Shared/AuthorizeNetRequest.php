@@ -40,12 +40,12 @@ abstract class AuthorizeNetRequest
      * @param string $api_login_id       The Merchant's API Login ID.
      * @param string $transaction_key The Merchant's Transaction Key.
      */
-    public function __construct($api_login_id = false, $transaction_key = false)
+    public function __construct($api_login_id, $transaction_key, $sandbox = true)
     {
-        $this->_api_login = ($api_login_id ? $api_login_id : (defined('AUTHORIZENET_API_LOGIN_ID') ? AUTHORIZENET_API_LOGIN_ID : ""));
-        $this->_transaction_key = ($transaction_key ? $transaction_key : (defined('AUTHORIZENET_TRANSACTION_KEY') ? AUTHORIZENET_TRANSACTION_KEY : ""));
-        $this->_sandbox = (defined('AUTHORIZENET_SANDBOX') ? AUTHORIZENET_SANDBOX : true);
-        $this->_log_file = (defined('AUTHORIZENET_LOG_FILE') ? AUTHORIZENET_LOG_FILE : false);
+        $this->_api_login = $api_login_id;
+        $this->_transaction_key = $transaction_key;
+        $this->_sandbox = $sandbox;
+        $this->_log_file = (defined('AUTHORIZENET_LOG_FILE') ? AUTHORIZENET_LOG_FILE : false); // todo: support logging?
     }
     
     /**
