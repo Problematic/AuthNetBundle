@@ -10,7 +10,7 @@ use Problematic\AuthNetBundle\AuthorizeNet\Shared\AuthorizeNetXMLResponse;
  * @package    AuthorizeNet
  * @subpackage AuthorizeNetARB
  */
-class AuthorizeNetARB_Response extends AuthorizeNetXMLResponse
+class AuthorizeNetARBResponse extends AuthorizeNetXMLResponse
 {
 
     /**

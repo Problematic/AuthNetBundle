@@ -8,7 +8,7 @@ namespace Problematic\AuthNetBundle\AuthorizeNet\API\ARB;
  * @package    AuthorizeNet
  * @subpackage AuthorizeNetARB
  */
-class AuthorizeNet_Subscription
+class AuthorizeNetSubscription
 {
 
     public $name;
