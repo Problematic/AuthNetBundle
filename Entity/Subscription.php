@@ -32,6 +32,10 @@ class Subscription
      * @ORM\Column(type="string")
      */
     protected $ref_id;
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $status;
 
     public function getId()
     {
@@ -78,6 +82,16 @@ class Subscription
         return $this->ref_id;
     }
     
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+    
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
     /**
      * @ORM\PrePersist
      */
@@ -95,4 +109,9 @@ class Subscription
         $this->setUpdatedAt(new \DateTime());
     }
 
+    public function __toString()
+    {
+        return $this->getSubscriptionId();
+    }
+    
 }
