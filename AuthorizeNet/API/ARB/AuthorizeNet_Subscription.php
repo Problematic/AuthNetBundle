@@ -1,6 +1,6 @@
 <?php
 
-namespace Problematic\AuthNetBundle\AuthorizeNet\Shared\DataType;
+namespace Problematic\AuthNetBundle\AuthorizeNet\API\ARB;
 
 /**
  * A class that contains all fields for an AuthorizeNet ARB Subscription.
