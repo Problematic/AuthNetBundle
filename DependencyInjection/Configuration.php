@@ -11,11 +11,11 @@ class Configuration
     {
         $builder = new TreeBuilder();
 
-        $builder->root('problematic_authnet', 'array')
+        $builder->root('problematic_auth_net', 'array')
             ->children()
                 ->scalarNode('api_login')->isRequired()->end()
                 ->scalarNode('transaction_key')->isRequired()->end()
-                ->booleanNode('sandbox_mode')->isRequired()->end()
+                ->booleanNode('sandbox_mode')->defaultValue(null)->end()
             ->end()
         ->end();
 

@@ -13,6 +13,10 @@ class ProblematicAuthNetExtension extends Extension
         $processor = new Processor();
         $configuration = new Configuration();
         $config = $processor->process($configuration->getConfigTree(), $configs);
+
+        if (null === $config['sandbox_mode']) {
+            $config['sandbox_mode'] = $container->getParameter('kernel.debug');
+        }
         
         $container->setParameter('auth_net.api_login', $config['api_login']);
         $container->setParameter('auth_net.transaction_key', $config['transaction_key']);
