@@ -45,7 +45,9 @@ class ArbController extends Controller
             // todo: redirect to success page
         }
         
-        return new \Symfony\Component\HttpFoundation\Response();
+        return $this->render('ProblematicAuthNetBundle:Arb:createSubscription.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
     
     public function updateSubscriptionAction()
