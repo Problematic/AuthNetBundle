@@ -4,26 +4,25 @@ namespace Problematic\AuthNetBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Problematic\AuthNetBundle\AuthorizeNet\Shared\DataType\AuthorizeNet_Subscription;
+use Problematic\AuthNetBundle\AuthorizeNet\API\ARB\AuthorizeNetSubscription;
 use Problematic\AuthNetBundle\AuthorizeNet\API\ARB\AuthorizeNetARB;
 use Problematic\AuthNetBundle\Entity\Subscription;
+use Problematic\AuthNetBundle\Form\SubscriptionType;
 
 class ArbController extends Controller
 {
 
     public function createSubscriptionAction()
-    {
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw new AccessDeniedException();
-        }
-        
+    {        
         $em = $this->getDoctrine()->getEntityManager();
         $request = $this->getRequest();
-        $subscription = new AuthorizeNet_Subscription();
-        $form = $this->createForm($type, $subscription, $options);
+        $subscription = new AuthorizeNetSubscription();
+        $form = $this->createForm(new SubscriptionType(), $subscription);
         
         if ('POST' == $request->getMethod()) {
             $form->bindRequest($request);
+            
+            $postVars = $request->request->get('subscription');
             
             if ($form->isValid()) {
                 $create_request = new AuthorizeNetARB();
