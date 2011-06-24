@@ -2,8 +2,7 @@
 
 namespace Problematic\AuthNetBundle\AuthorizeNet\API\ARB;
 
-use Problematic\AuthNetBundle\AuthorizeNet\Shared\AuthorizeNetRequest,
-    Problematic\AuthNetBundle\AuthorizeNet\Shared\DataType\AuthorizeNet_Subscription;
+use Problematic\AuthNetBundle\AuthorizeNet\Shared\AuthorizeNetRequest;
 
 /**
  * Easily interact with the Authorize.Net ARB XML API.
