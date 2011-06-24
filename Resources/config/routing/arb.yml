@@ -1,0 +1,3 @@
+ProblematicAuthNetBundle_Arb_createSubscription:
+    pattern: /create
+    defaults: { _controller: ProblematicAuthNetBundle:Arb:createSubscription }
