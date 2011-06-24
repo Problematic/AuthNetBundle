@@ -45,7 +45,7 @@ class AuthorizeNetARB extends AuthorizeNetRequest
      *
      * @return AuthorizeNetARB_Response
      */
-    public function createSubscription(AuthorizeNet_Subscription $subscription)
+    public function createSubscription(AuthorizeNetSubscription $subscription)
     {
         $this->_request_type = "CreateSubscriptionRequest";
         $this->_request_payload .= $subscription->getXml();
@@ -60,7 +60,7 @@ class AuthorizeNetARB extends AuthorizeNetRequest
      *
      * @return AuthorizeNetARB_Response
      */
-    public function updateSubscription($subscriptionId, AuthorizeNet_Subscription $subscription)
+    public function updateSubscription($subscriptionId, AuthorizeNetSubscription $subscription)
     {
         $this->_request_type = "UpdateSubscriptionRequest";
         $this->_request_payload .= "<subscriptionId>$subscriptionId</subscriptionId>";
@@ -105,7 +105,7 @@ class AuthorizeNetARB extends AuthorizeNetRequest
      */
     protected function _handleResponse($response)
     {
-        return new AuthorizeNetARB_Response($response);
+        return new AuthorizeNetARBResponse($response);
     }
     
     /**
