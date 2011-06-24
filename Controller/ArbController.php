@@ -37,6 +37,8 @@ class ArbController extends Controller
 
                     $em->persist($subscription);
                     $em->flush();
+                } else {
+                    
                 }
             }
             
@@ -57,12 +59,34 @@ class ArbController extends Controller
         
         $status_request = new AuthorizeNetARB();
         $response = $status_request->getSubscriptionStatus($subscription->getSubscriptionId());
-        $status = $response->getSubscriptionStatus();
+        
+        if ($response->isOk()) {
+            $status = $response->getSubscriptionStatus();
+            $subscription->setStatus($status);
+            $em->flush();
+        } else {
+            
+        }
+        
+        return new \Symfony\Component\HttpFoundation\Response();
     }
     
-    public function cancelSubscriptionAction()
+    public function cancelSubscriptionAction(Subscription $subscription)
     {
+        $em = $this->getDoctrine()->getEntityManager();
         
+        $cancellation_request = new AuthorizeNetARB();
+        $cancellation_request->setRefId($subscription->getRefId());
+        $response = $cancellation_request->cancelSubscription($subscription->getSubscriptionId());
+        
+        if ($response->isOk()) {
+            $subscription->setStatus($response->getSubscriptionStatus());
+            $em->flush();
+        } else {
+            
+        }
+        
+        return new \Symfony\Component\HttpFoundation\Response();
     }
     
 }
