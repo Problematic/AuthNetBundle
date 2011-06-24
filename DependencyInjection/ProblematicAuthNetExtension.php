@@ -1,6 +1,6 @@
 <?php
 
-namespace Problematic\AuthNetBundle\AuthorizeNet\DependencyInjection;
+namespace Problematic\AuthNetBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
