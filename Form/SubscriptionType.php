@@ -17,33 +17,36 @@ class SubscriptionType extends AbstractType
             'widget'    => 'single_text',
             'format'    => \IntlDateFormatter::SHORT,
         ));
-        $builder->add('creditCardCardCode');
+        $builder->add('creditCardCardCode', 'text', array(
+            'required'  => false,
+        ));
         
-        $builder->add('customerId');
-        $builder->add('customerEmail');
-        $builder->add('customerPhoneNumber');
-        $builder->add('customerFaxNumber');
+        $builder->add('customerEmail', 'email', array(
+            'required'  => false,
+        ));
+        $builder->add('customerPhoneNumber', 'text', array(
+            'required'  => false,
+        ));
         
         $builder->add('billToFirstName');
         $builder->add('billToLastName');
-        $builder->add('billToCompany');
-        $builder->add('billToAddress');
-        $builder->add('billToCity');
-        $builder->add('billToState');
-        $builder->add('billToZip');
-        $builder->add('billToCountry', 'country', array(
-            'preferred_choices' => array('us'),
+        $builder->add('billToCompany', 'text', array(
+            'required'  => false,
         ));
-        
-        $builder->add('shipToFirstName');
-        $builder->add('shipToLastName');
-        $builder->add('shipToCompany');
-        $builder->add('shipToAddress');
-        $builder->add('shipToCity');
-        $builder->add('shipToState');
-        $builder->add('shipToZip');
-        $builder->add('shipToCountry', 'country', array(
-            'preferred_choices' => array('us'),
+        $builder->add('billToAddress', 'text', array(
+            'required'  => false,
+        ));
+        $builder->add('billToCity', 'text', array(
+            'required'  => false,
+        ));
+        $builder->add('billToState', 'text', array(
+            'required'  => false,
+        ));
+        $builder->add('billToZip', 'text', array(
+            'required'  => false,
+        ));
+        $builder->add('billToCountry', 'text', array(
+            'required'  => false,
         ));
     }
     
