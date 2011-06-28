@@ -13,7 +13,7 @@ class ArbController extends Controller
 {
 
     public function createSubscriptionAction()
-    {        
+    {
         $em = $this->getDoctrine()->getEntityManager();
         $request = $this->getRequest();
         $subscription = $this->prepareSubscription(new AuthorizeNetSubscription());
@@ -22,17 +22,19 @@ class ArbController extends Controller
         if ('POST' == $request->getMethod()) {
             $form->bindRequest($request);
             
+            $subscription->creditCardExpirationDate = $subscription->creditCardExpirationDate->format('Y-m'); // hack
             $postVars = $request->request->get('subscription');
             
             if ($form->isValid()) {
-                $create_request = new AuthorizeNetARB();
-                $create_request->setRefId($this->get('security.context')->getToken()->getUser()->getId());
+                $create_request = $this->createARB();
+                $create_request->setRefId($subscription->customerId);
                 $response = $create_request->createSubscription($subscription);
-
+                
                 if ($response->isOk()) {
                     $subscription = new Subscription();
                     $subscription->setSubscriptionId($response->getSubscriptionId());
                     $subscription->setRefId($response->getRefID());
+                    $subscription->setStatus($response->getSubscriptionStatus());
 
                     $em->persist($subscription);
                     $em->flush();
@@ -58,7 +60,7 @@ class ArbController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         
-        $status_request = new AuthorizeNetARB();
+        $status_request = $this->createARB();
         $response = $status_request->getSubscriptionStatus($subscription->getSubscriptionId());
         
         if ($response->isOk()) {
@@ -76,7 +78,7 @@ class ArbController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         
-        $cancellation_request = new AuthorizeNetARB();
+        $cancellation_request = $this->createARB();
         $cancellation_request->setRefId($subscription->getRefId());
         $response = $cancellation_request->cancelSubscription($subscription->getSubscriptionId());
         
@@ -96,4 +98,10 @@ class ArbController extends Controller
         return $subscription;
     }
     
+    protected function createARB()
+    {
+        return new AuthorizeNetArb($this->container->getParameter('auth_net.api_login'),
+            $this->container->getParameter('auth_net.transaction_key'),
+            $this->container->getParameter('auth_net.sandbox_mode'));
+    }
 }
