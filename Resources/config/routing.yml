@@ -1,0 +1,3 @@
+ProblematicAuthNetBundle_Arb:
+    resource: "@ProblematicAuthNetBundle/Resources/config/routing/arb.yml"
+    prefix: /arb
