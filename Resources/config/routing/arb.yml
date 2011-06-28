@@ -1,3 +1,7 @@
 ProblematicAuthNetBundle_Arb_createSubscription:
     pattern: /create
     defaults: { _controller: ProblematicAuthNetBundle:Arb:createSubscription }
+
+ProblematicAuthNetBundle_Arb_cancelSubscription:
+    pattern: /cancel/{id}
+    defaults: { _controller: ProblematicAuthNetBundle:Arb:cancelSubscription }
