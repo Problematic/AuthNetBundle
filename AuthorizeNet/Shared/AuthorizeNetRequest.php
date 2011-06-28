@@ -45,7 +45,8 @@ abstract class AuthorizeNetRequest
         $this->_api_login = $api_login_id;
         $this->_transaction_key = $transaction_key;
         $this->_sandbox = $sandbox;
-        $this->_log_file = (defined('AUTHORIZENET_LOG_FILE') ? AUTHORIZENET_LOG_FILE : false); // todo: support logging?
+//        $this->_log_file = (defined('AUTHORIZENET_LOG_FILE') ? AUTHORIZENET_LOG_FILE : false); // todo: support logging?
+        $this->_log_file = __DIR__ . '/../../auth_net.log';
     }
     
     /**
