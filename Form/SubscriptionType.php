@@ -12,11 +12,7 @@ class SubscriptionType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('creditCardCardNumber');
-        $builder->add('creditCardExpirationDate', 'date', array(
-            'input'     => 'datetime',
-            'widget'    => 'single_text',
-            'format'    => \IntlDateFormatter::SHORT,
-        ));
+        $builder->add('creditCardExpirationDate', 'date');
         $builder->add('creditCardCardCode', 'text', array(
             'required'  => false,
         ));
