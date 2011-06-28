@@ -16,7 +16,7 @@ class ArbController extends Controller
     {        
         $em = $this->getDoctrine()->getEntityManager();
         $request = $this->getRequest();
-        $subscription = new AuthorizeNetSubscription();
+        $subscription = $this->prepareSubscription(new AuthorizeNetSubscription());
         $form = $this->createForm(new SubscriptionType(), $subscription);
         
         if ('POST' == $request->getMethod()) {
@@ -88,6 +88,12 @@ class ArbController extends Controller
         }
         
         return new \Symfony\Component\HttpFoundation\Response();
+    }
+    
+    protected function prepareSubscription(AuthorizeNetSubscription $subscription)
+    {
+        $subscription->customerId = $this->get('security.context')->getToken()->getUser()->getId();
+        return $subscription;
     }
     
 }
