@@ -8,6 +8,7 @@ use Problematic\AuthNetBundle\AuthorizeNet\API\ARB\AuthorizeNetSubscription;
 use Problematic\AuthNetBundle\AuthorizeNet\API\ARB\AuthorizeNetARB;
 use Problematic\AuthNetBundle\Entity\Subscription;
 use Problematic\AuthNetBundle\Form\SubscriptionType;
+use Problematic\AuthNetBundle\Event\FilterArbSubscriptionEvent;
 
 class ArbController extends Controller
 {
@@ -16,16 +17,17 @@ class ArbController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         $request = $this->getRequest();
-        $subscription = $this->prepareSubscription(new AuthorizeNetSubscription());
+        $subscription = new AuthorizeNetSubscription();
         $form = $this->createForm(new SubscriptionType(), $subscription);
         
         if ('POST' == $request->getMethod()) {
             $form->bindRequest($request);
             
-            $subscription->creditCardExpirationDate = $subscription->creditCardExpirationDate->format('Y-m'); // hack
-            $postVars = $request->request->get('subscription');
-            
             if ($form->isValid()) {
+                $event = new FilterArbSubscriptionEvent($subscription, $request->request->get($form->getName()));
+                $this->get('event_dispatcher')->dispatch('auth_net.arb.preCreateSubscription', $event);
+                $subscription = $event->getSubscription();
+                
                 $create_request = $this->createARB();
                 $create_request->setRefId($subscription->customerId);
                 $response = $create_request->createSubscription($subscription);
@@ -90,12 +92,6 @@ class ArbController extends Controller
         }
         
         return new \Symfony\Component\HttpFoundation\Response();
-    }
-    
-    protected function prepareSubscription(AuthorizeNetSubscription $subscription)
-    {
-        $subscription->customerId = $this->get('security.context')->getToken()->getUser()->getId();
-        return $subscription;
     }
     
     protected function createARB()
