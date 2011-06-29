@@ -3,19 +3,15 @@
 namespace Problematic\AuthNetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Problematic\AuthNetBundle\Model\Subscription as BaseSubscription;
 
 /**
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-class Subscription
+abstract class Subscription extends BaseSubscription
 {
-
-    /**
-     * @ORM\Id @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
-    protected $id;
+    
     /**
      * @ORM\Column(type="datetime")
      */
@@ -31,16 +27,7 @@ class Subscription
     /**
      * @ORM\Column(type="string")
      */
-    protected $ref_id;
-    /**
-     * @ORM\Column(type="string")
-     */
     protected $status;
-
-    public function getId()
-    {
-        return $this->id;
-    }
     
     public function setCreatedAt(\DateTime $created_at)
     {
@@ -60,36 +47,6 @@ class Subscription
     public function getUpdatedAt()
     {
         return $this->updated_at;
-    }
-
-    public function setSubscriptionId($subscription_id)
-    {
-        $this->subscription_id = $subscription_id;
-    }
-
-    public function getSubscriptionId()
-    {
-        return $this->subscription_id;
-    }
-
-    public function setRefId($ref_id)
-    {
-        $this->ref_id = $ref_id;
-    }
-
-    public function getRefId()
-    {
-        return $this->ref_id;
-    }
-    
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-    
-    public function getStatus()
-    {
-        return $this->status;
     }
     
     /**
