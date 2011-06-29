@@ -1,0 +1,8 @@
+services:
+    auth_net.listener:
+        class: %problematic_auth_net.event_listener%
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            securityContext: "@security.context"
+        tags:
+            - { name: kernel.event_listener, event: auth_net.arb.preCreateSubscription, method: onArbPreCreateSubscription }
