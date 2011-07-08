@@ -17,16 +17,16 @@ class Configuration
             ->children()
                 ->scalarNode('api_login')->isRequired()->end()
                 ->scalarNode('transaction_key')->isRequired()->end()
-                ->booleanNode('sandbox_mode')->defaultValue(null)->end()
+                ->booleanNode('sandbox_mode')->defaultNull()->end()
                 ->scalarNode('event_listener')->end()
             ->end()
         ->end();
-        
+
         $this->addArbSection($root);
 
         return $builder->buildTree();
     }
-    
+
     private function addArbSection(ArrayNodeDefinition $node)
     {
         $node
